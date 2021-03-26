@@ -75,23 +75,23 @@ function runCdk(){
 		exit 1
 	fi
 
-	if [ "$GITHUB_EVENT_NAME" == "pull_request" ] && [ "${INPUT_ACTIONS_COMMENT}" == "true" ]; then
-		commentWrapper="#### \`cdk ${INPUT_CDK_SUBCOMMAND}\` ${commentStatus}
-<details><summary>Show Output</summary>
+# 	if [ "$GITHUB_EVENT_NAME" == "pull_request" ] && [ "${INPUT_ACTIONS_COMMENT}" == "true" ]; then
+# 		commentWrapper="#### \`cdk ${INPUT_CDK_SUBCOMMAND}\` ${commentStatus}
+# <details><summary>Show Output</summary>
 
-\`\`\`
-${output}
-\`\`\`
+# \`\`\`
+# ${output}
+# \`\`\`
 
-</details>
+# </details>
 
-*Workflow: \`${GITHUB_WORKFLOW}\`, Action: \`${GITHUB_ACTION}\`, Working Directory: \`${INPUT_WORKING_DIR}\`*"
+# *Workflow: \`${GITHUB_WORKFLOW}\`, Action: \`${GITHUB_ACTION}\`, Working Directory: \`${INPUT_WORKING_DIR}\`*"
 
-		payload=$(echo "${commentWrapper}" | jq -R --slurp '{body: .}')
-		commentsURL=$(cat ${GITHUB_EVENT_PATH} | jq -r .pull_request.comments_url)
+# 		payload=$(echo "${commentWrapper}" | jq -R --slurp '{body: .}')
+# 		commentsURL=$(cat ${GITHUB_EVENT_PATH} | jq -r .pull_request.comments_url)
 
-		echo "${payload}" | curl -s -S -H "Authorization: token ${GITHUB_TOKEN}" --header "Content-Type: application/json" --data @- "${commentsURL}" > /dev/null
-	fi
+# 		echo "${payload}" | curl -s -S -H "Authorization: token ${GITHUB_TOKEN}" --header "Content-Type: application/json" --data @- "${commentsURL}" > /dev/null
+# 	fi
 }
 
 function main(){
